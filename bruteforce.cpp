@@ -64,7 +64,7 @@ void dfs() {
 }
 
 int main() {
-    ios_base::sync_with_stdio(false); cin.tie(nullptr); 
+    freopen("input.txt", "r", stdin); 
     memset(completed, 0, sizeof(completed)); 
     cin >> n >> curLevel; 
     rq = vector<Query>(n); 
