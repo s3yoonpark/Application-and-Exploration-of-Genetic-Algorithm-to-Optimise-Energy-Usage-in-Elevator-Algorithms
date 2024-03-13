@@ -5,7 +5,7 @@ struct Query {
     int from, to; 
 }; 
 
-const int elevatorWeight = 3000; 
+const int elevatorWeight = 2000; 
 const int humanWeight = 60; 
 const int distanceBetweenFloors = 3; 
 const int accelerationGravity = 10; 
