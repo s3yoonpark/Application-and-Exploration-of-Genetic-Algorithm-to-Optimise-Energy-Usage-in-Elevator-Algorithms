@@ -30,6 +30,7 @@ struct cmp2 {
 
 int main() {
     freopen("input.txt", "r", stdin); 
+    freopen("output.txt", "w", stdout); 
     int n, curLevel; 
     cin >> n >> curLevel; 
     rq = vector<Query>(n); 
@@ -51,7 +52,7 @@ int main() {
     while (!right.empty()) {
         pair<int,int> cur = right.top(); right.pop();
         // cout << "RIGHT : " << (cur.second == 1 ? rq[cur.first-1].from : rq[cur.first-1].to) << '\n'; 
-        cout << cur.first << ' ' << cur.second << "  "; 
+        // cout << cur.first << ' ' << cur.second << "  "; 
         if (cur.second == 1) {
             ans += (num * humanWeight + elevatorWeight) * accelerationGravity * abs(last - rq[cur.first-1].from) * distanceBetweenFloors; 
             last = rq[cur.first-1].from; 
@@ -70,7 +71,7 @@ int main() {
     while (!left.empty()) {
         pair<int,int> cur = left.top(); left.pop();
         // cout << "LEFT : " << (cur.second == 1 ? rq[cur.first-1].from : rq[cur.first-1].to) << '\n'; 
-        cout << cur.first << ' ' << cur.second << "  "; 
+        // cout << cur.first << ' ' << cur.second << "  "; 
         if (cur.second == 1) {
             ans += (num * humanWeight + elevatorWeight) * accelerationGravity * abs(last - rq[cur.first-1].from) * distanceBetweenFloors; 
             last = rq[cur.first-1].from; 
@@ -89,7 +90,7 @@ int main() {
     while (!right.empty()) {
         pair<int,int> cur = right.top(); right.pop();
         // cout << "RIGHT : " << (cur.second == 1 ? rq[cur.first-1].from : rq[cur.first-1].to) << '\n'; 
-        cout << cur.first << ' ' << cur.second << "  "; 
+        // cout << cur.first << ' ' << cur.second << "  "; 
         if (cur.second == 1) {
             ans += (num * humanWeight + elevatorWeight) * accelerationGravity * abs(last - rq[cur.first-1].from) * distanceBetweenFloors; 
             last = rq[cur.first-1].from; 
@@ -100,8 +101,9 @@ int main() {
             --num; 
         }
     }
-    cout << '\n'; 
-    cout << ans << ' ' << num << '\n'; 
+    cout << ans << '\n'; 
+    // cout << '\n'; 
+    // cout << ans << ' ' << num << '\n'; 
 
     return 0; 
 }

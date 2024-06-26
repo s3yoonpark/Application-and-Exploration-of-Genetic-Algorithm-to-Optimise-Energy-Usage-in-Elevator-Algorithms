@@ -1,9 +1,9 @@
 from random import randint 
 
 f = open("input.txt", "w") 
-n = randint(1, 15) 
-fl = randint(1, 50) 
+n = randint(1, 12) 
+fl = randint(1, 25) 
 f.write(f"{n} {fl}\n")
 for i in range(n): 
-    f.write(f"{randint(1, 50)} {randint(1, 50)}\n")
-f.close()  
+    f.write(f"{randint(1, 25)} {randint(1, 25)}\n")
+f.close() 

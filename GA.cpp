@@ -4,16 +4,16 @@
 #include <chrono>
 using namespace std;
 
-const int populationSize = 14000;
-const int evolutionCycle = 60;
-
+const int populationSize = 25000;
+const int evolutionCycle = 25;
 const int elevatorWeight = 2000;
+
 const int humanWeight = 60;
 const int distanceBetweenFloors = 3; 
 const int accelerationGravity = 10; 
 
-const int mutationRate = 1;
-const int survivalRate = 10;
+const int mutationRate = 50;
+const int survivalRate = 20;
 
 struct Query
 {
@@ -33,7 +33,7 @@ int rng(int a, int b)
     return distr(gen);
 }
 
-int cost(vector<pair<int, int>> &arr)
+int cost(vector<pair<int, int>>& arr)
 {
     int ans = 0;
     int num = 0;
@@ -133,6 +133,8 @@ vector<pair<int, int>> crossover(vector<pair<int, int>> &monoParent)
 
 int main()
 {
+    freopen("input.txt", "r", stdin); 
+    freopen("output.txt", "w", stdout); 
     cin >> N >> curLevel;
     for (int i = 0; i < N; ++i)
     {
@@ -150,7 +152,7 @@ int main()
     for (int i = 0; i < evolutionCycle; ++i)
     {
         sort(population.begin(), population.end(), cmp);
-        cout << i + 1 << "th evolution: " << cost(population[0]) << '\n';
+        // cout << i + 1 << "th evolution: " << cost(population[0]) << '\n';
         int fittest = (populationSize)*survivalRate / 100;
         int remaining = populationSize - fittest;
         vector<vector<pair<int, int>>> newPopulation;
@@ -167,13 +169,13 @@ int main()
         swap(population, newPopulation);
     }
     sort(population.begin(), population.end(), cmp);
-    cout << "BEST ONE: " << cost(population[0]) << '\n';
-    for (auto& x : population[0]) {
-        cout<<x.first<<' '<<x.second<<"  "; 
-    }
-    cout<<'\n'; 
+    cout << cost(population[0]) << '\n'; 
+    // cout << "BEST ONE: " << cost(population[0]) << '\n';
+    // for (auto& x : population[0]) {
+    //     cout<<x.first<<' '<<x.second<<"  "; 
+    // }
+    // cout<<'\n'; 
     auto timeEnd = chrono::high_resolution_clock::now();
-    cout << chrono::duration_cast<chrono::milliseconds>(timeEnd - timeStart).count() << "ms" << '\n';
-
+    // cout << chrono::duration_cast<chrono::milliseconds>(timeEnd - timeStart).count() << "ms" << '\n';
     return 0;
 }
