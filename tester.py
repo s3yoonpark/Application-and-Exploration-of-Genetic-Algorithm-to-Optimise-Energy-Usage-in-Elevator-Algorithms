@@ -9,8 +9,8 @@ for i in range(100):
     subprocess.run(["./scan.exe"])
     scan_list.append(int(f.readline())) 
     f.close() 
-    f=open("output.txt", "r") 
     subprocess.run(["./GA.exe"])
+    f=open("output.txt", "r") 
     main_list.append(int(f.readline())) 
     f.close() 
 

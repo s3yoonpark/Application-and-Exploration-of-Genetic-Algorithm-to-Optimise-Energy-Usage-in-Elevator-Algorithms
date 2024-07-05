@@ -1,10 +1,7 @@
-#include <iostream>
-#include <random>
-#include <algorithm>
-#include <chrono>
+#include <bits/stdc++.h>
 using namespace std;
 
-const int populationSize = 25000;
+const int populationSize = 15000;
 const int evolutionCycle = 25;
 const int elevatorWeight = 2000;
 
@@ -24,6 +21,8 @@ struct Query
 int N, curLevel;
 vector<vector<pair<int, int>>> population;
 vector<Query> requests;
+
+bool SCAN_ASSIST=0; 
 
 int rng(int a, int b)
 {
@@ -132,9 +131,21 @@ vector<pair<int, int>> crossover(vector<pair<int, int>> &monoParent)
 }
 
 int main()
-{
-    freopen("input.txt", "r", stdin); 
-    freopen("output.txt", "w", stdout); 
+{   
+    vector<pair<int,int>> model; 
+    if(SCAN_ASSIST){
+        ifstream fin("output.txt"); 
+        int garbage; 
+        fin>>garbage; 
+        int a,b;
+        while(fin>>a>>b){
+            model.push_back({a,b}); 
+        }
+        fin.close(); 
+        // for(auto&[a,b]:model)cout<<a<<' '<<b<<'\n'; 
+    }
+    ifstream cin("input.txt"); 
+    ofstream cout("output.txt"); 
     cin >> N >> curLevel;
     for (int i = 0; i < N; ++i)
     {
@@ -147,12 +158,12 @@ int main()
 
     for (int i = 0; i < populationSize; ++i)
     {
-        population.push_back(generate());
+        if(SCAN_ASSIST)population.push_back(model); 
+        else population.push_back(generate());
     }
     for (int i = 0; i < evolutionCycle; ++i)
     {
         sort(population.begin(), population.end(), cmp);
-        // cout << i + 1 << "th evolution: " << cost(population[0]) << '\n';
         int fittest = (populationSize)*survivalRate / 100;
         int remaining = populationSize - fittest;
         vector<vector<pair<int, int>>> newPopulation;
@@ -170,12 +181,7 @@ int main()
     }
     sort(population.begin(), population.end(), cmp);
     cout << cost(population[0]) << '\n'; 
-    // cout << "BEST ONE: " << cost(population[0]) << '\n';
-    // for (auto& x : population[0]) {
-    //     cout<<x.first<<' '<<x.second<<"  "; 
-    // }
-    // cout<<'\n'; 
     auto timeEnd = chrono::high_resolution_clock::now();
-    // cout << chrono::duration_cast<chrono::milliseconds>(timeEnd - timeStart).count() << "ms" << '\n';
+    cout << chrono::duration_cast<chrono::milliseconds>(timeEnd - timeStart).count() << "ms" << '\n';
     return 0;
 }

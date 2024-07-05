@@ -5,6 +5,7 @@ const int elevatorWeight = 2000;
 const int humanWeight = 60;
 const int distanceBetweenFloors = 3; 
 const int accelerationGravity = 10; 
+bool DEBUG=1; 
 
 struct Query{
     int from, to; 
@@ -46,11 +47,13 @@ int main() {
             left.push(make_pair(i+1, 1)); 
         }
     }
+    vector<pair<int,int>> history; 
     int last = curLevel; 
     int ans = 0; 
     int num = 0; 
     while (!right.empty()) {
         pair<int,int> cur = right.top(); right.pop();
+        history.push_back(cur); 
         // cout << "RIGHT : " << (cur.second == 1 ? rq[cur.first-1].from : rq[cur.first-1].to) << '\n'; 
         // cout << cur.first << ' ' << cur.second << "  "; 
         if (cur.second == 1) {
@@ -70,6 +73,7 @@ int main() {
     }
     while (!left.empty()) {
         pair<int,int> cur = left.top(); left.pop();
+        history.push_back(cur); 
         // cout << "LEFT : " << (cur.second == 1 ? rq[cur.first-1].from : rq[cur.first-1].to) << '\n'; 
         // cout << cur.first << ' ' << cur.second << "  "; 
         if (cur.second == 1) {
@@ -89,6 +93,7 @@ int main() {
     }
     while (!right.empty()) {
         pair<int,int> cur = right.top(); right.pop();
+        history.push_back(cur); 
         // cout << "RIGHT : " << (cur.second == 1 ? rq[cur.first-1].from : rq[cur.first-1].to) << '\n'; 
         // cout << cur.first << ' ' << cur.second << "  "; 
         if (cur.second == 1) {
@@ -102,8 +107,15 @@ int main() {
         }
     }
     cout << ans << '\n'; 
-    // cout << '\n'; 
-    // cout << ans << ' ' << num << '\n'; 
+    if(DEBUG){
+        // cout<<"HISTORY:\n"; 
+        // cout<<'{'; 
+        // for(int i=0; i<(int)history.size(); i++){
+        //     cout<<'{'<<history[i].first<<','<<history[i].second<<'}'<<",}"[i==(int)history.size()-1]; 
+        // }
+        // cout<<'\n'; 
+        for(auto&[a,b]:history)cout<<a<<' '<<b<<'\n'; 
+    }
 
     return 0; 
 }
